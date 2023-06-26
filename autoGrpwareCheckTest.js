@@ -16,17 +16,16 @@ const {gwId, gwPassword} = require('./var');
     await page.locator('#login_loginBox div').click();
     await page.fill('#password', gwPassword);
     await page.click('#btnLogin');
-    // const parentElement = await page.waitForSelector('#lnb');
 
-    // await childElement.click();
-    // await browser.close();
-    const timeout = 5000; // ?? ?? (???)
+    //?? ?????? ??
+    await page.waitForLoadState('networkidle');
 
-    await page.waitForFunction(() => {
-        const element = document.querySelectorAll('a[title="????"]');
-        return element !== null
-    }, {timeout: timeout});
+    await page.evaluate(() => {
+        // ??? ??? ?? ?? ??
+        GwMainMenu.fn.showAllMenuBox();
+        GwMainMenu.fn.goPage('MNU141533832780342527501','https://my.naonsoft.com/ekp/scr/attend/atnAttendMain','G','L','null','null');
+    });
 
-    await page.click($('a[title="????"]'));
-
+    await page.click('#atnMyTimeCard_attnlvfRegBtn');
+    await page.click('#myAttendWrite_btn_attn');
 })();
